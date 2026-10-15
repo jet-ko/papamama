@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#cfbb93">
+<meta name="description" content="在妈妈提出的情况下，爸爸需要无条件转一次✨">
+<meta property="og:title" content="妈妈的ごきげん转盘">
+<meta property="og:description" content="在妈妈提出的情况下，爸爸需要无条件转一次✨">
+<meta property="og:type" content="website">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<title>妈妈的ごきげん转盘</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","PingFang SC","Noto Sans CJK JP",sans-serif;color:#594630;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;}
+body{background:#d8c3a0;overscroll-behavior-y:none}
+.page{min-height:100dvh;display:flex;justify-content:center;align-items:center;padding:18px 13px 24px;background:radial-gradient(ellipse 67% 33% at 5% 2%,#fff7e9b2 0,transparent 100%),radial-gradient(ellipse 75% 55% at 99% 99%,#a98b6095 0,transparent 85%),radial-gradient(#c8ac7f44 1px,transparent 1px) 0 0/21px 21px,linear-gradient(135deg,#e4d2b0 0%,#cbb087 52%,#e3cfab 100%)}
+.shell{position:relative;overflow:hidden;text-align:center;width:min(100%,540px);margin:auto;padding:26px 17px 26px;border:1.5px solid #bf9e67;border-radius:25px;background:linear-gradient(166deg,#fffcf4 0%,#f6ecd9 66%,#f7edda 100%);box-shadow:0 20px 50px #71562d3d,0 0 0 5px #fff7e43d}
+.shell:before,.shell:after{position:absolute;content:'✧';color:#b79459;pointer-events:none;font-size:23px;opacity:.75}
+.shell:before{top:130px;left:5%}.shell:after{top:159px;right:5%}
+.kicker{display:inline-flex;align-items:center;justify-content:center;border:1px solid #d8be8b;background:#fef8eb;border-radius:100px;padding:8px 17px;color:#947044;font-weight:700;font-size:11px;letter-spacing:.1em}
+h1{font-size:clamp(24px,6.2vw,35px);font-weight:850;color:#5b4228;line-height:1.35;letter-spacing:.012em;margin:17px auto 8px;overflow-wrap:anywhere}
+.intro{font-size:clamp(12px,3.35vw,14px);color:#93734c;font-weight:600;line-height:1.7;margin:9px 0 19px}.intro b{color:#7b5b35;font-weight:750}
+.wheel-area{position:relative;width:min(100%,425px);aspect-ratio:1;margin:2px auto 13px;filter:drop-shadow(0 10px 8px #90714855)}
+.wheel{display:block;width:100%;height:100%;transform:rotate(0deg);will-change:transform}
+.slice-text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","PingFang SC",sans-serif;pointer-events:none;paint-order:stroke;stroke:#fff8e5a6;stroke-width:1.8px;stroke-linejoin:round}
+.pointer{position:absolute;top:-13px;left:50%;transform:translateX(-50%);width:50px;height:67px;z-index:5;pointer-events:none;filter:drop-shadow(0 3px 2px #80643b66)}
+.center-spin{appearance:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;border:3px solid #ac8549;background:radial-gradient(circle at 28% 20%,#fffef8,#f2e0b9 83%);border-radius:50%;width:25%;height:25%;min-height:80px;min-width:80px;max-height:114px;max-width:114px;color:#8c6b35;cursor:pointer;box-shadow:0 0 0 5px #fdf4e3d1,0 5px 8px #634c2e40;touch-action:manipulation}
+.center-spin .crown{font:normal 34px/1 Georgia,serif}.center-spin .center-word{font-size:14px;font-weight:900;letter-spacing:.12em}
+.center-spin:focus-visible,.btn:focus-visible{outline:3px solid #84663d;outline-offset:4px}
+.result[hidden]{display:none}
+.result{margin:8px auto 15px;padding:4px 8px;max-width:400px}
+.result-label{font-size:11px;letter-spacing:.15em;color:#9a7848;font-weight:800;margin:0 0 7px}
+.result-name{font-weight:850;font-size:clamp(19px,4.9vw,24px);color:#5f472d;line-height:1.45;margin:0;overflow-wrap:anywhere;animation:appear .46s ease-out}
+@keyframes appear{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.btn{display:block;margin:17px auto 0;width:min(94%,370px);padding:14px 9px;min-height:54px;background:linear-gradient(160deg,#bc965b 0%,#9d7844 64%,#846232 100%);border:1.5px solid #765a34;box-shadow:0 4px 0 #755b38;color:#fff9eb;border-radius:13px;cursor:pointer;touch-action:manipulation;font-family:inherit;font-size:clamp(15px,4.15vw,18px);letter-spacing:.03em;font-weight:800;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #755b38}.btn:disabled,.center-spin:disabled{opacity:.7;cursor:wait}
+.love-note{display:flex;justify-content:center;align-items:center;gap:15px;font-size:14px;font-weight:700;color:#9a784a;letter-spacing:.085em;margin:24px auto 3px}.love-note:before,.love-note:after{content:'';width:48px;max-width:15%;height:1px;background:#c8ac7d}
+.confetti{position:fixed;pointer-events:none;inset:0;z-index:10;overflow:hidden}.petal{position:absolute;top:-25px;width:10px;height:15px;background:var(--paper);border-radius:60% 12% 60% 12%;animation:fall var(--duration) ease-in forwards;animation-delay:var(--delay)}
+@keyframes fall{to{transform:translate(var(--drift),104vh) rotate(var(--turn));opacity:0}}
+@media(max-width:380px){.shell{padding:22px 11px 24px}.page{padding:11px 8px 19px}.intro{margin-bottom:15px}.pointer{width:44px;height:57px;top:-11px}}
+@media(prefers-reduced-motion:reduce){.result-name{animation:none}.petal{animation-duration:.8s}.btn{transition:none}}
+</style>
+</head>
+<body>
+<main class="page">
+ <div class="shell">
+  <div class="kicker">✧ &nbsp; ママの愿望清单 &nbsp; ✧</div>
+  <h1>妈妈的ごきげん转盘</h1>
+  <p class="intro">在妈妈提出的情况下，<br><b>爸爸需要无条件转一次✨</b></p>
+  <div class="wheel-area">
+   <svg id="wheel" class="wheel" viewBox="0 0 480 480" role="img" aria-label="8つのプレゼントが書かれたルーレット">
+   <circle cx="240" cy="240" r="237" fill="#d0b17b" stroke="#866637" stroke-width="3"/>
+   <circle cx="240" cy="240" r="227" fill="#fffbf0" stroke="#e7d2ad" stroke-width="4"/>
+   <g id="segments"><path d="M240 240 L156.58 38.59 A218 218 0 0 1323.42 38.59 Z" fill="#f7edd9" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L323.42 38.59 A218 218 0 0 1441.41 156.58 Z" fill="#e1c99f" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L441.41 156.58 A218 218 0 0 1441.41 323.42 Z" fill="#f4e7cc" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L441.41 323.42 A218 218 0 0 1323.42 441.41 Z" fill="#d9bc8f" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L323.42 441.41 A218 218 0 0 1156.58 441.41 Z" fill="#f9efd9" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L156.58 441.41 A218 218 0 0 138.59 323.42 Z" fill="#e5cfac" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L38.59 323.42 A218 218 0 0 138.59 156.58 Z" fill="#f2e4c9" stroke="#fffaef" stroke-width="2.5"/><path d="M240 240 L38.59 156.58 A218 218 0 0 1156.58 38.59 Z" fill="#dec59c" stroke="#fffaef" stroke-width="2.5"/></g>
+   <g id="labels"><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="240.00" y="75.00">カルティエ</tspan><tspan x="240.00" y="99.00">指輪</tspan></text><text class="slice-text" text-anchor="middle" font-size="15" fill="#634b31" font-weight="700"><tspan x="348.19" y="107.81">エルメスの</tspan><tspan x="348.19" y="131.81">シルバー</tspan><tspan x="348.19" y="155.81">ネックレス</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="393.00" y="240.00">時計</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="348.19" y="336.19">brown</tspan><tspan x="348.19" y="360.19">ベルト</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="240.00" y="381.00">LV</tspan><tspan x="240.00" y="405.00">白いcap</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="131.81" y="336.19">Dior</tspan><tspan x="131.81" y="360.19">スニーカー</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="87.00" y="240.00">スカーフ</tspan></text><text class="slice-text" text-anchor="middle" font-size="17" fill="#634b31" font-weight="700"><tspan x="131.81" y="119.81">モンクレール</tspan><tspan x="131.81" y="143.81">ダウンコート</tspan></text></g>
+   <circle cx="240" cy="240" r="218" fill="none" stroke="#b19361" stroke-width="2.4"/>
+   <circle cx="240" cy="240" r="233" fill="none" stroke="#fff2d5" stroke-width="2.8"/>
+   <g><circle cx="470.00" cy="240.00" r="2.25" fill="#ad8d57"/><circle cx="468.03" cy="270.02" r="1.3" fill="#d2b884"/><circle cx="462.16" cy="299.53" r="1.3" fill="#d2b884"/><circle cx="452.49" cy="328.02" r="1.3" fill="#d2b884"/><circle cx="439.19" cy="355.00" r="2.25" fill="#ad8d57"/><circle cx="422.47" cy="380.02" r="1.3" fill="#d2b884"/><circle cx="402.63" cy="402.63" r="1.3" fill="#d2b884"/><circle cx="380.02" cy="422.47" r="1.3" fill="#d2b884"/><circle cx="355.00" cy="439.19" r="2.25" fill="#ad8d57"/><circle cx="328.02" cy="452.49" r="1.3" fill="#d2b884"/><circle cx="299.53" cy="462.16" r="1.3" fill="#d2b884"/><circle cx="270.02" cy="468.03" r="1.3" fill="#d2b884"/><circle cx="240.00" cy="470.00" r="2.25" fill="#ad8d57"/><circle cx="209.98" cy="468.03" r="1.3" fill="#d2b884"/><circle cx="180.47" cy="462.16" r="1.3" fill="#d2b884"/><circle cx="151.98" cy="452.49" r="1.3" fill="#d2b884"/><circle cx="125.00" cy="439.19" r="2.25" fill="#ad8d57"/><circle cx="99.98" cy="422.47" r="1.3" fill="#d2b884"/><circle cx="77.37" cy="402.63" r="1.3" fill="#d2b884"/><circle cx="57.53" cy="380.02" r="1.3" fill="#d2b884"/><circle cx="40.81" cy="355.00" r="2.25" fill="#ad8d57"/><circle cx="27.51" cy="328.02" r="1.3" fill="#d2b884"/><circle cx="17.84" cy="299.53" r="1.3" fill="#d2b884"/><circle cx="11.97" cy="270.02" r="1.3" fill="#d2b884"/><circle cx="10.00" cy="240.00" r="2.25" fill="#ad8d57"/><circle cx="11.97" cy="209.98" r="1.3" fill="#d2b884"/><circle cx="17.84" cy="180.47" r="1.3" fill="#d2b884"/><circle cx="27.51" cy="151.98" r="1.3" fill="#d2b884"/><circle cx="40.81" cy="125.00" r="2.25" fill="#ad8d57"/><circle cx="57.53" cy="99.98" r="1.3" fill="#d2b884"/><circle cx="77.37" cy="77.37" r="1.3" fill="#d2b884"/><circle cx="99.98" cy="57.53" r="1.3" fill="#d2b884"/><circle cx="125.00" cy="40.81" r="2.25" fill="#ad8d57"/><circle cx="151.98" cy="27.51" r="1.3" fill="#d2b884"/><circle cx="180.47" cy="17.84" r="1.3" fill="#d2b884"/><circle cx="209.98" cy="11.97" r="1.3" fill="#d2b884"/><circle cx="240.00" cy="10.00" r="2.25" fill="#ad8d57"/><circle cx="270.02" cy="11.97" r="1.3" fill="#d2b884"/><circle cx="299.53" cy="17.84" r="1.3" fill="#d2b884"/><circle cx="328.02" cy="27.51" r="1.3" fill="#d2b884"/><circle cx="355.00" cy="40.81" r="2.25" fill="#ad8d57"/><circle cx="380.02" cy="57.53" r="1.3" fill="#d2b884"/><circle cx="402.63" cy="77.37" r="1.3" fill="#d2b884"/><circle cx="422.47" cy="99.98" r="1.3" fill="#d2b884"/><circle cx="439.19" cy="125.00" r="2.25" fill="#ad8d57"/><circle cx="452.49" cy="151.98" r="1.3" fill="#d2b884"/><circle cx="462.16" cy="180.47" r="1.3" fill="#d2b884"/><circle cx="468.03" cy="209.98" r="1.3" fill="#d2b884"/></g>
+  </svg>
+   <svg class="pointer" viewBox="0 0 60 72" aria-hidden="true"><path d="M30 64L12 25Q9 20 15 19H45Q51 20 48 25Z" fill="#bd995b" stroke="#6e542f" stroke-width="3.5" stroke-linejoin="round"/><path d="M30 61L20 29H40Z" fill="#fff3d8" stroke="#886c3e" stroke-width="1.7"/><path d="M22 17Q17 11 22 7Q27 4 30 10Q34 4 39 7Q44 11 39 17Z" fill="#fdf7e8" stroke="#82653d" stroke-width="2.7"/></svg>
+   <button type="button" class="center-spin" id="centerSpin" aria-label="点这里转转"><span class="crown" aria-hidden="true">♛</span><span class="center-word">转转</span></button>
+  </div>
+  <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
+   <p class="result-label">✦ 今回の礼物 ✦</p>
+   <p class="result-name" id="resultName"></p>
+  </div>
+  <button type="button" class="btn" id="spinButton">尊敬的熊掌 请按这里</button>
+  <div class="love-note">仲直りしてね</div>
+ </div>
+</main>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+<script>
+'use strict';
+(()=>{
+ const entries=["カルティエ指輪", "エルメスのシルバーネックレス", "時計", "brownベルト", "LV白いcap", "Diorスニーカー", "スカーフ", "モンクレールダウンコート"];
+ const wheel=document.getElementById('wheel');
+ const spinButton=document.getElementById('spinButton');
+ const centerSpin=document.getElementById('centerSpin');
+ const result=document.getElementById('result');
+ const resultName=document.getElementById('resultName');
+ let angle=0,spinning=false;
+ const norm=n=>(n%360+360)%360;
+ function randomIndex(max){
+   if(window.crypto&&window.crypto.getRandomValues){
+     const arr=new Uint32Array(1),upper=Math.floor(4294967296/max)*max;
+     do{window.crypto.getRandomValues(arr)}while(arr[0]>=upper);
+     return arr[0]%max;
+   }
+   return Math.floor(Math.random()*max);
+ }
+ function celebrate(){
+   const holder=document.getElementById('confetti');
+   holder.replaceChildren();
+   const palette=['#cfb37e','#ac8755','#f5e8c9','#dec28a','#b49a6d'];
+   for(let i=0;i<34;i++){
+     const el=document.createElement('i');el.className='petal';
+     el.style.setProperty('--paper',palette[i%palette.length]);
+     el.style.left=Math.random()*100+'%';
+     el.style.setProperty('--duration',(2+Math.random()*1.6)+'s');
+     el.style.setProperty('--delay',(Math.random()*.6)+'s');
+     el.style.setProperty('--drift',(Math.random()*220-110)+'px');
+     el.style.setProperty('--turn',(Math.random()*1100-550)+'deg');
+     holder.appendChild(el);
+   }
+   setTimeout(()=>holder.replaceChildren(),3900);
+ }
+ function spin(){
+   if(spinning)return;
+   spinning=true;
+   spinButton.disabled=true;
+   centerSpin.disabled=true;
+   spinButton.textContent='正在转转…';
+   result.hidden=true;
+   const index=randomIndex(entries.length),step=360/entries.length;
+   const jitter=(Math.random()-.5)*step*.36;
+   const goal=norm(-index*step+jitter);
+   const delta=norm(goal-norm(angle));
+   angle=norm(angle);
+   wheel.style.transition='none';
+   wheel.style.transform=`rotate(${angle}deg)`;
+   void wheel.getBoundingClientRect();
+   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   const duration=reduce?700:4800;
+   angle+=360*(reduce?2:7)+delta;
+   let finished=false,timer;
+   const finish=()=>{
+     if(finished)return;
+     finished=true;
+     clearTimeout(timer);
+     spinning=false;
+     spinButton.disabled=false;
+     centerSpin.disabled=false;
+     spinButton.textContent='尊敬的熊掌 请按这里';
+     resultName.textContent='🎁 '+entries[index]+' 🎁';
+     result.hidden=false;
+     try{navigator.vibrate?.(30)}catch(e){}
+     celebrate();
+   };
+   const onEnd=e=>{
+     if(e.target===wheel&&e.propertyName==='transform'){
+       wheel.removeEventListener('transitionend',onEnd);
+       finish();
+     }
+   };
+   wheel.addEventListener('transitionend',onEnd);
+   wheel.style.transition=`transform ${duration}ms cubic-bezier(.11,.75,.12,1)`;
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+     wheel.style.transform=`rotate(${angle}deg)`;
+   }));
+   timer=setTimeout(()=>{wheel.removeEventListener('transitionend',onEnd);finish()},duration+200);
+ }
+ spinButton.addEventListener('click',spin);
+ centerSpin.addEventListener('click',spin);
+})();
+</script>
+</body>
+</html>
